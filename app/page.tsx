@@ -14,13 +14,13 @@ export default function Home() {
         7. November 2026
       </div>
       <h1 className="container text-4xl mb-4 sm:text-5xl font-serif text-base-100 font-bold text-center">
-        Deutsche Meisterschaft <br /> der Formationen
+        Deutsche Meisterschaft <br /> der Formationen 2026
       </h1>
       <p className="mb-4 sm:text-lg container text-base-200">
         Der TSC Rot-Gold-Casino Nürnberg lädt herzlich zur Deutschen
-        Meisterschaft der Formationen in die KIA Metropol Arena ein. Erleben Sie
-        Tanzsport der Spitzenklasse und die Top-Teams Deutschlands live im
-        Wettstreit um den deutschen Meistertitel.
+        Meisterschaft der Formationen Standard und Latein in die KIA Metropol
+        Arena ein. Erleben Sie Tanzsport der Spitzenklasse und die Top-Teams
+        Deutschlands live im Wettstreit um den deutschen Meistertitel.
       </p>
       <Link
         href="/"
