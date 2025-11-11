@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Deutsche Meisterschaften der Formationen Standard & Latein 2026",
+  title: "Deutsche Meisterschaft der Formationen Standard & Latein 2026",
   description:
-    "Erleben Sie die Faszination des Formationstanzes bei den Deutschen Meisterschaften 2026! Seien Sie dabei, wenn die besten Teams Deutschlands in Standard und Latein um den Titel kämpfen. Ein unvergessliches Event für Tanzbegeisterte und Sportfans!",
+    "Erleben Sie die Faszination des Formationstanzes bei der Deutschen Meisterschaft 2026! Seien Sie dabei, wenn die besten Teams Deutschlands in Standard und Latein um den Titel kämpfen. Ein unvergessliches Event für Tanzbegeisterte und Sportfans!",
 };
 
 export default function RootLayout({
