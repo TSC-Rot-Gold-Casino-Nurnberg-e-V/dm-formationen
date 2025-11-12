@@ -3,7 +3,9 @@ import {
   ArrowRightIcon,
   CalendarDaysIcon,
   ClockIcon,
+  HomeIcon,
   MapPinIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import { Countdown } from "@/components/Countdown";
 import { EventDateChip } from "@/components/EventDateChip";
@@ -85,44 +87,44 @@ export default function Home() {
             <ArrowRightIcon className="size-4 stroke-2" />
           </Link>
         </section>
-        {/*<section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">*/}
-        {/*  <div>*/}
-        {/*    <div className="flex justify-between gap-2 mb-2 text-base-50">*/}
-        {/*      <h2 className="text-3xl font-bold">Teams</h2>*/}
-        {/*      <UserGroupIcon className="size-8 shrink-0" />*/}
-        {/*    </div>*/}
-        {/*    <p>*/}
-        {/*      Die jeweils 8 besten Mannschaften Deutschlands aus der Standard-*/}
-        {/*      und Lateinsektion*/}
-        {/*    </p>*/}
-        {/*  </div>*/}
-        {/*  <Link*/}
-        {/*    href="/teams"*/}
-        {/*    className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"*/}
-        {/*  >*/}
-        {/*    <div>zu den Teams</div>*/}
-        {/*    <ArrowRightIcon className="size-4 stroke-2" />*/}
-        {/*  </Link>*/}
-        {/*</section>*/}
-        {/*<section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">*/}
-        {/*  <div>*/}
-        {/*    <div className="flex justify-between gap-2 mb-2 text-base-50">*/}
-        {/*      <h2 className="text-3xl font-bold">Hotels</h2>*/}
-        {/*      <HomeIcon className="size-8 shrink-0" />*/}
-        {/*    </div>*/}
-        {/*    <p>*/}
-        {/*      Wir haben für unsere Gäste eine Auswahl an Hotels in verschiedenen*/}
-        {/*      Preiskategorien zusammengestellt*/}
-        {/*    </p>*/}
-        {/*  </div>*/}
-        {/*  <Link*/}
-        {/*    href="/hotels"*/}
-        {/*    className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"*/}
-        {/*  >*/}
-        {/*    <div>zu den Hotels</div>*/}
-        {/*    <ArrowRightIcon className="size-4 stroke-2" />*/}
-        {/*  </Link>*/}
-        {/*</section>*/}
+        <section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">
+          <div>
+            <div className="flex justify-between gap-2 mb-2 text-base-50">
+              <h2 className="text-3xl font-bold">Teams</h2>
+              <UserGroupIcon className="size-8 shrink-0" />
+            </div>
+            <p>
+              Die jeweils 8 besten Mannschaften Deutschlands aus der Standard-
+              und Lateinsektion
+            </p>
+          </div>
+          <Link
+            href="/teams"
+            className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+          >
+            <div>zu den Teams</div>
+            <ArrowRightIcon className="size-4 stroke-2" />
+          </Link>
+        </section>
+        <section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">
+          <div>
+            <div className="flex justify-between gap-2 mb-2 text-base-50">
+              <h2 className="text-3xl font-bold">Hotels</h2>
+              <HomeIcon className="size-8 shrink-0" />
+            </div>
+            <p>
+              Wir haben für unsere Gäste eine Auswahl an Hotels in verschiedenen
+              Preiskategorien zusammengestellt
+            </p>
+          </div>
+          <Link
+            href="/hotels"
+            className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+          >
+            <div>zu den Hotels</div>
+            <ArrowRightIcon className="size-4 stroke-2" />
+          </Link>
+        </section>
       </div>
     </main>
   );

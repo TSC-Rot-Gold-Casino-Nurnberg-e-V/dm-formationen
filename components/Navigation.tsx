@@ -4,10 +4,10 @@ import { ComponentProps, PropsWithChildren } from "react";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
-  // { href: "/teams", label: "Teams" },
-  // { href: "/tickets", label: "Tickets" },
   { href: "/zeitplan", label: "Zeitplan" },
-  // { href: "/hotels", label: "Hotels" },
+  { href: "/teams", label: "Teams" },
+  // { href: "/tickets", label: "Tickets" },
+  { href: "/hotels", label: "Hotels" },
   // { href: "/presse", label: "Presse" },
   // { href: "/livestream", label: "Livestream" },
   // { href: "/anfahrt", label: "Anfahrt" },
