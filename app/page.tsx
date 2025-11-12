@@ -2,17 +2,16 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   CalendarDaysIcon,
-  MapPinIcon,
   ClockIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { Countdown } from "@/components/Countdown";
+import { EventDateChip } from "@/components/EventDateChip";
 
 export default function Home() {
   return (
     <main className="mb-8">
-      <div className="container bg-primary-300 my-6 rounded-full text-sm text-primary-900 font-semibold px-3 py-1 w-fit mx-auto">
-        7. November 2026
-      </div>
+      <EventDateChip className="container my-6" />
       <h1 className="container text-4xl mb-4 sm:text-5xl font-serif text-base-100 font-bold text-center">
         Deutsche Meisterschaft <br /> der Formationen 2026
       </h1>
