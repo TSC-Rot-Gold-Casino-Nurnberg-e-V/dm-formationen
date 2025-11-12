@@ -49,7 +49,7 @@ export default function Home() {
                 <div className="text-2xl font-bold text-base-50">13:30 Uhr</div>
               </div>
             </div>
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4">
               <ClockIcon className="size-8 shrink-0" />
               <div>
                 <div className="text-sm tracking-wide font-semibold">ABEND</div>
@@ -59,7 +59,7 @@ export default function Home() {
           </div>
           <Link
             href="/zeitplan"
-            className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+            className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
             <div>zum Zeitplan</div>
             <ArrowRightIcon className="size-4 stroke-2" />
@@ -81,7 +81,7 @@ export default function Home() {
             // href="/anfahrt"
             href="https://maps.app.goo.gl/CCD4LEHkXWQBdnfdA"
             target="_blank"
-            className="flex p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+            className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
             <div>Anfahrt planen</div>
             <ArrowRightIcon className="size-4 stroke-2" />
@@ -100,7 +100,7 @@ export default function Home() {
           </div>
           <Link
             href="/teams"
-            className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+            className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
             <div>zu den Teams</div>
             <ArrowRightIcon className="size-4 stroke-2" />
@@ -119,7 +119,7 @@ export default function Home() {
           </div>
           <Link
             href="/hotels"
-            className="flex self-end p-2 -m-2 ml-auto w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+            className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
             <div>zu den Hotels</div>
             <ArrowRightIcon className="size-4 stroke-2" />
