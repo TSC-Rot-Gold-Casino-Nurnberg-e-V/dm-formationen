@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: "/teams", label: "Teams" },
   // { href: "/tickets", label: "Tickets" },
   { href: "/hotels", label: "Hotels" },
-  // { href: "/presse", label: "Presse" },
+  { href: "/presse", label: "Presse" },
   // { href: "/livestream", label: "Livestream" },
   // { href: "/anfahrt", label: "Anfahrt" },
 ];
