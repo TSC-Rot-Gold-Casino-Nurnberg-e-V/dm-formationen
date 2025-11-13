@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   // { href: "/tickets", label: "Tickets" },
   { href: "/hotels", label: "Hotels" },
   { href: "/presse", label: "Presse" },
-  // { href: "/livestream", label: "Livestream" },
+  { href: "/livestream", label: "Livestream" },
   { href: "/anfahrt", label: "Anfahrt" },
 ];
 

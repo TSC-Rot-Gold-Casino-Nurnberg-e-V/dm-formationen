@@ -8,13 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: BASE_URL,
       lastModified: new Date(),
       changeFrequency: "yearly",
-      priority: 0.9,
+      priority: 1,
     },
     {
       url: `${BASE_URL}/zeitplan`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/teams`,
@@ -39,6 +39,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.4,
+    },
+    {
+      url: `${BASE_URL}/livestream`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
   ];
 }
