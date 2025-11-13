@@ -24,6 +24,7 @@ export default function AnfahrtPage() {
         <Link
           className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           href="https://kia-metropol-arena.de"
+          target="_blank"
         >
           <div>Zur Webseite der Arena</div>
           <ArrowRightIcon className="size-4 stroke-2" />
