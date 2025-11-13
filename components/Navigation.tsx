@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { href: "/hotels", label: "Hotels" },
   { href: "/presse", label: "Presse" },
   // { href: "/livestream", label: "Livestream" },
-  // { href: "/anfahrt", label: "Anfahrt" },
+  { href: "/anfahrt", label: "Anfahrt" },
 ];
 
 export const Navigation = () => {

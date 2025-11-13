@@ -78,9 +78,7 @@ export default function Home() {
             <div className="text-base">90431 Nürnberg</div>
           </div>
           <Link
-            // href="/anfahrt"
-            href="https://maps.app.goo.gl/CCD4LEHkXWQBdnfdA"
-            target="_blank"
+            href="/anfahrt"
             className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
             <div>Anfahrt planen</div>
