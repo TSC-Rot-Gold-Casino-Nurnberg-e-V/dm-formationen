@@ -24,7 +24,7 @@ export default function Home() {
         Deutschlands live im Wettstreit um den deutschen Meistertitel.
       </p>
       <Link
-        href="/"
+        href="/tickets"
         className="container mb-8 block w-fit not-prose bg-secondary-700 text-lg hover:bg-secondary-600 px-6 py-3 rounded-full transition-colors font-bold cursor-pointer !text-white"
       >
         Jetzt Tickets sichern!

@@ -4,12 +4,12 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { ComponentProps, PropsWithChildren, useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/zeitplan", label: "Zeitplan" },
   { href: "/teams", label: "Teams" },
-  // { href: "/tickets", label: "Tickets" },
   { href: "/hotels", label: "Hotels" },
   { href: "/presse", label: "Presse" },
   { href: "/livestream", label: "Livestream" },
@@ -18,6 +18,9 @@ const NAV_ITEMS = [
 
 export const Navigation = () => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isTicketPage = pathname === "/tickets";
 
   return (
     <header className="w-screen sticky top-0 bg-base-900/90">
@@ -43,12 +46,14 @@ export const Navigation = () => {
             ))}
           </ul>
         </div>
-        <Link
-          href="/"
-          className="block shrink-0 w-fit ml-2 bg-secondary-700 text-sm hover:bg-secondary-600 px-3 py-1 rounded-full transition-colors font-bold cursor-pointer !text-white"
-        >
-          Tickets sichern
-        </Link>
+        {!isTicketPage && (
+          <Link
+            href="/tickets"
+            className="block shrink-0 w-fit ml-2 bg-secondary-700 text-sm hover:bg-secondary-600 px-3 py-1 rounded-full transition-colors font-bold cursor-pointer !text-white"
+          >
+            Tickets sichern
+          </Link>
+        )}
 
         {/* Mobile nav */}
         {open && (
