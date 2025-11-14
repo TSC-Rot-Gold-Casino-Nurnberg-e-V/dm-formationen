@@ -103,25 +103,25 @@ export default function TicketsPage() {
             Jetzt Tickets sichern
           </Link>
         </section>
-        <section className="bg-base-800 p-6 rounded-4xl not-prose @xl:col-span-2">
-          <h2 className="text-primary-300 text-2xl md:text-3xl mb-4 font-bold">
-            Kombinationsticket
-          </h2>
-          <div className="font-semibold text-base-100 text-xl sm:text-2xl mb-4">
-            Tages- & Abendveranstaltung
-          </div>
-          <p>
-            Profitieren Sie von unserem Kombinationsticket und sichern Sie sich
-            Zugang zu beiden Veranstaltungen zu einem attraktiven Preis!
-          </p>
-          <Link
-            href="https://www.eventim-light.com/de/a/62e933c3f787a077f3bcff90/e/69027d9aac6f162b5182a918?lang=de"
-            target="_blank"
-            className="container mt-4 block text-center not-prose bg-secondary-700 text-lg hover:bg-secondary-600 px-6 py-3 rounded-full transition-colors font-bold cursor-pointer !text-white"
-          >
-            Jetzt Tickets sichern
-          </Link>
-        </section>
+        {/*<section className="bg-base-800 p-6 rounded-4xl not-prose @xl:col-span-2">*/}
+        {/*  <h2 className="text-primary-300 text-2xl md:text-3xl mb-4 font-bold">*/}
+        {/*    Kombinationsticket*/}
+        {/*  </h2>*/}
+        {/*  <div className="font-semibold text-base-100 text-xl sm:text-2xl mb-4">*/}
+        {/*    Tages- & Abendveranstaltung*/}
+        {/*  </div>*/}
+        {/*  <p>*/}
+        {/*    Profitieren Sie von unserem Kombinationsticket und sichern Sie sich*/}
+        {/*    Zugang zu beiden Veranstaltungen zu einem attraktiven Preis!*/}
+        {/*  </p>*/}
+        {/*  <Link*/}
+        {/*    href="https://www.eventim-light.com/de/a/62e933c3f787a077f3bcff90/e/69027d9aac6f162b5182a918?lang=de"*/}
+        {/*    target="_blank"*/}
+        {/*    className="container mt-4 block text-center not-prose bg-secondary-700 text-lg hover:bg-secondary-600 px-6 py-3 rounded-full transition-colors font-bold cursor-pointer !text-white"*/}
+        {/*  >*/}
+        {/*    Jetzt Tickets sichern*/}
+        {/*  </Link>*/}
+        {/*</section>*/}
       </div>
       <div className="not-prose border border-base-700 mt-8  rounded-3xl text-sm p-3 text-base-400">
         <div className="flex gap-2">
