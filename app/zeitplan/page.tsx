@@ -13,7 +13,7 @@ export default function ZeitplanPage() {
       <EventDateChip className="container" />
       <div className="w-fit mx-auto">
         <section>
-          <h2 className="text-primary-300 !mt-10">Nachmittagsveranstaltung</h2>
+          <h2 className="text-primary-300 !mt-10">Tagesveranstaltung</h2>
           <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
             <div className="space-y-3">
               <div className="font-black text-base-100 text-xl sm:text-2xl">

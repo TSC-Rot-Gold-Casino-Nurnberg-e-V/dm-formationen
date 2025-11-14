@@ -44,16 +44,18 @@ export default function Home() {
               <ClockIcon className="size-8 shrink-0" />
               <div>
                 <div className="text-sm tracking-wide font-semibold">
-                  NACHMITTAG
+                  TAGESVERANSTALTUNG
                 </div>
-                <div className="text-2xl font-bold text-base-50">13:30 Uhr</div>
+                <div className="text-2xl font-bold text-base-50">14:30 Uhr</div>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <ClockIcon className="size-8 shrink-0" />
               <div>
-                <div className="text-sm tracking-wide font-semibold">ABEND</div>
-                <div className="text-2xl font-bold text-base-50">18:30 Uhr</div>
+                <div className="text-sm tracking-wide font-semibold">
+                  ABENDVERANSTALTUNG
+                </div>
+                <div className="text-2xl font-bold text-base-50">19:30 Uhr</div>
               </div>
             </div>
           </div>
