@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PressePage() {
   return (
-    <main className="container prose sm:prose-lg prose-invert prose-neutral mx-auto py-8">
+    <main className="container !max-w-xl prose sm:prose-lg prose-invert prose-neutral mx-auto py-8">
       <h1 className="text-center">Presse</h1>
       <p>
         Informationen zu Presseakkreditierungen, Medienkontakten und Downloads
