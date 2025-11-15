@@ -114,6 +114,17 @@ export default function TicketsPage() {
             Profitieren Sie von unserem Kombinationsticket und sichern Sie sich
             Zugang zu beiden Veranstaltungen zu einem attraktiven Preis!
           </p>
+          <div className="not-prose border border-base-700 mt-4  rounded-3xl text-sm p-3 text-base-400">
+            <div className="flex gap-2">
+              <InformationCircleIcon className="size-5 shrink-0" />
+              <p>
+                Für das Kombiticket nach Auswahl des Platzes unter
+                &#34;Ermäßigungen und Buchungsoptionen&#34; den Kombipreis
+                wählen und dann zur Kasse gehen.
+              </p>
+            </div>
+          </div>
+
           <Link
             href="https://www.eventim-light.com/de/a/62e933c3f787a077f3bcff90/e/69027d9aac6f162b5182a918?lang=de"
             target="_blank"
