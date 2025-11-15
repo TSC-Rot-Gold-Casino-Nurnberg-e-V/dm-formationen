@@ -28,10 +28,8 @@ export const BackgroundImage = () => {
         src={backgroundImage}
         alt=""
         className={
-          "object-cover object-top opacity-80 blur-[2px] " + isChrome &&
-          (isIOS || isMacOs)
-            ? ""
-            : "will-change-transform"
+          "object-cover object-top opacity-80 blur-[2px] " +
+          (isChrome && (isIOS || isMacOs) ? "" : "will-change-transform")
         }
         fill
         priority
