@@ -3,7 +3,12 @@
 import Image from "next/image";
 import backgroundImage from "../public/background-image.jpg";
 import { useEffect, useRef } from "react";
-import { isChrome, isMobileSafari, isSafari } from "react-device-detect";
+import {
+  isChrome,
+  isChromium,
+  isMobileSafari,
+  isSafari,
+} from "react-device-detect";
 
 export const BackgroundImage = () => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -29,7 +34,7 @@ export const BackgroundImage = () => {
         alt=""
         className={
           "object-cover object-top opacity-80 blur-[2px] " +
-          ((isSafari || isMobileSafari) && !isChrome
+          ((isSafari || isMobileSafari) && !isChrome && !isChromium
             ? "will-change-transform"
             : "")
         }
