@@ -23,7 +23,7 @@ export const Navigation = () => {
   const isTicketPage = pathname === "/tickets";
 
   return (
-    <header className="w-screen sticky top-0 bg-base-900/90">
+    <header className="w-screen sticky z-10 top-0 bg-base-900/90">
       <nav className="container flex items-center justify-between max-sm:px-2">
         <button
           className="sm:hidden p-2 w-fit rounded cursor-pointer"

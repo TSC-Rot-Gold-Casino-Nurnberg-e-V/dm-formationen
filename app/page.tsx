@@ -9,15 +9,17 @@ import {
 } from "@heroicons/react/24/outline";
 import { Countdown } from "@/components/Countdown";
 import { EventDateChip } from "@/components/EventDateChip";
+import { BackgroundImage } from "@/components/BackgroundImage";
 
 export default function Home() {
   return (
     <main className="mb-8">
+      <BackgroundImage />
       <EventDateChip className="container my-6" />
-      <h1 className="container text-4xl mb-4 sm:text-5xl font-serif text-base-100 font-bold text-center">
+      <h1 className="container text-4xl mb-4 sm:text-5xl font-serif text-base-50 drop-shadow-lg drop-shadow-base-950 font-bold text-center">
         Deutsche Meisterschaft <br /> der Formationen 2026
       </h1>
-      <p className="mb-4 sm:text-lg container text-base-200">
+      <p className="mb-4 sm:text-lg container text-base-100 drop-shadow-lg drop-shadow-base-950">
         Der TSC Rot-Gold-Casino Nürnberg lädt herzlich zur Deutschen
         Meisterschaft der Formationen Standard und Latein in die KIA Metropol
         Arena ein. Erleben Sie Tanzsport der Spitzenklasse und die Top-Teams
@@ -31,7 +33,7 @@ export default function Home() {
       </Link>
       <Countdown />
       <div className="container grid mt-8 gap-4 not-prose sm:grid-cols-2">
-        <section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">
+        <section className="bg-base-800/80 flex flex-col justify-between rounded-3xl p-8 pb-6">
           <div>
             <div className="flex justify-between gap-2 mb-2 text-base-50">
               <h2 className="text-3xl font-bold">Wann?</h2>
@@ -67,7 +69,7 @@ export default function Home() {
             <ArrowRightIcon className="size-4 stroke-2" />
           </Link>
         </section>
-        <section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">
+        <section className="bg-base-800/80 flex flex-col justify-between rounded-3xl p-8 pb-6">
           <div>
             <div className="flex justify-between gap-2 mb-2 text-base-50">
               <h2 className="text-3xl font-bold">Wo?</h2>
@@ -87,7 +89,7 @@ export default function Home() {
             <ArrowRightIcon className="size-4 stroke-2" />
           </Link>
         </section>
-        <section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">
+        <section className="bg-base-800/80 flex flex-col justify-between rounded-3xl p-8 pb-6">
           <div>
             <div className="flex justify-between gap-2 mb-2 text-base-50">
               <h2 className="text-3xl font-bold">Teams</h2>
@@ -106,7 +108,7 @@ export default function Home() {
             <ArrowRightIcon className="size-4 stroke-2" />
           </Link>
         </section>
-        <section className="bg-base-800 flex flex-col justify-between rounded-3xl p-8 pb-6">
+        <section className="bg-base-800/80 flex flex-col justify-between rounded-3xl p-8 pb-6">
           <div>
             <div className="flex justify-between gap-2 mb-2 text-base-50">
               <h2 className="text-3xl font-bold">Hotels</h2>
