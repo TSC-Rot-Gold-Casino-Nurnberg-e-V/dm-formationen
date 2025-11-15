@@ -3,6 +3,7 @@
 import Image from "next/image";
 import backgroundImage from "../public/background-image.jpg";
 import { useEffect, useRef } from "react";
+import { isChrome, isIOS, isMacOs } from "react-device-detect";
 
 export const BackgroundImage = () => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -26,7 +27,12 @@ export const BackgroundImage = () => {
         ref={imageRef}
         src={backgroundImage}
         alt=""
-        className="object-cover object-top opacity-80 blur-[2px] will-change-transform"
+        className={
+          "object-cover object-top opacity-80 blur-[2px] " + isChrome &&
+          (isIOS || isMacOs)
+            ? ""
+            : "will-change-transform"
+        }
         fill
         priority
         suppressHydrationWarning
