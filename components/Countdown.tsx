@@ -22,7 +22,7 @@ export const Countdown = () => {
 
   return (
     <div className="container pb-6" suppressHydrationWarning={true}>
-      <section className="p-6 pt-4 rounded-3xl bg-base-800/80 mx-auto w-fit">
+      <section className="p-6 pt-4 max-sm:px-4 rounded-3xl bg-base-800/80 mx-auto w-fit">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Countdown bis zum Event
         </h2>
@@ -31,7 +31,7 @@ export const Countdown = () => {
             <div className="text-2xl sm:text-4xl text-base-50 font-bold">
               {days}
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-base-300 tracking-wide">
+            <div className="text-[10px] sm:text-sm font-semibold text-base-300">
               TAGE
             </div>
           </div>
@@ -39,7 +39,7 @@ export const Countdown = () => {
             <div className="text-2xl sm:text-4xl text-base-50 font-bold">
               {hours}
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-base-300 tracking-wide">
+            <div className="text-[10px] sm:text-sm font-semibold text-base-300">
               STUNDEN
             </div>
           </div>
@@ -47,7 +47,7 @@ export const Countdown = () => {
             <div className="text-2xl sm:text-4xl text-base-50 font-bold">
               {minutes}
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-base-300 tracking-wide">
+            <div className="text-[10px] sm:text-sm font-semibold text-base-300">
               MINUTEN
             </div>
           </div>
@@ -55,7 +55,7 @@ export const Countdown = () => {
             <div className="text-2xl sm:text-4xl text-base-50 font-bold">
               {seconds}
             </div>
-            <div className="text-xs sm:text-sm font-semibold text-base-300 tracking-wide">
+            <div className="text-[10px] sm:text-sm font-semibold text-base-300">
               SEKUNDEN
             </div>
           </div>
