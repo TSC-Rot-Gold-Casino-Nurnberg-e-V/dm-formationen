@@ -2,6 +2,7 @@ import { InformationCircleIcon, ClockIcon } from "@heroicons/react/24/outline";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AccreditationForm } from "@/components/AccreditationForm";
+import { CopyButton } from "@/components/CopyButton";
 
 export const metadata: Metadata = {
   title: "Presse-Akkreditierung | Deutsche Meisterschaft der Formationen 2026",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function AccreditationPage() {
   return (
-    <main className="container !max-w-xl prose sm:prose-lg prose-invert prose-neutral mx-auto py-8">
+    <main className="container max-w-xl! prose sm:prose-lg prose-invert prose-neutral mx-auto py-8">
       <h1 className="text-center">Presse-Akkreditierung</h1>
 
       <p>
@@ -58,10 +59,15 @@ export default function AccreditationPage() {
       <p>
         Sofern Sie über keinen Presseausweis verfügen oder keinen
         Redaktionsauftrag vorlegen können, besteht die Möglichkeit, eine
-        kostenpflichtige Medienlizenz zu erwerben. Diese berechtigt zur
-        Erstellung von Foto- und Videoaufnahmen sowie zur Nutzung des Materials
-        für redaktionelle Zwecke, Portfolio, Eigenwerbung und zur Weitergabe an
-        Bildagenturen.
+        kostenpflichtige Medienlizenz zu erwerben. Pressevertreter dürfen
+        erstellte Inhalte für redaktionelle Berichterstattung nutzen. Inhaber
+        einer kostenpflichtigen Medienlizenz dürfen Inhalte für redaktionelle
+        Zwecke, Eigenwerbung und Portfolio verwenden sowie Foto- und
+        Videoaufnahmen an Dritte verkaufen, insbesondere an teilnehmende
+        Tänzerinnen und Tänzer sowie Vereine. Der Verkauf erfolgt
+        eigenverantwortlich durch den Lizenznehmer. Der Veranstalter stellt
+        keine Plattform für den Vertrieb. Eine Nutzung zu Werbe- oder
+        Sponsoringzwecken ist nur mit gesonderter Genehmigung zulässig.
       </p>
       <p>
         Überweisen Sie dazu bitte den Betrag von{" "}
@@ -72,22 +78,34 @@ export default function AccreditationPage() {
         <div>
           <span className="text-base-400">Kontoinhaber</span>
           <br />
-          TSC Rot-Gold-Casino Nürnberg e.V.
+          <span className="flex items-center">
+            Tanzsportclub Rot-Gold-Casino Nürnberg e.V.
+            <CopyButton text="Tanzsportclub Rot-Gold-Casino Nürnberg e.V." />
+          </span>
         </div>
         <div className="pt-1">
           <span className="text-base-400">IBAN</span>
           <br />
-          <span className="tracking-wider">[IBAN]</span>
+          <span className="flex items-center">
+            <span className="tracking-wider">DE03 7605 0101 0010 7094 59</span>
+            <CopyButton text="DE03760501010010709459" />
+          </span>
         </div>
         <div>
           <span className="text-base-400">BIC</span>
           <br />
-          [BIC]
+          <span className="flex items-center">
+            NORSDE77
+            <CopyButton text="NORSDE77" />
+          </span>
         </div>
         <div>
           <span className="text-base-400">Bank</span>
           <br />
-          [Bank]
+          <span className="flex items-center">
+            Sparkasse Nürnberg
+            <CopyButton text="Sparkasse Nürnberg" />
+          </span>
         </div>
         <div className="pt-1">
           <span className="text-base-400">Verwendungszweck</span>
@@ -101,13 +119,20 @@ export default function AccreditationPage() {
           <div>
             Zahlungseingang spätestens bis zum{" "}
             <strong className="text-base-300">20. Oktober 2026</strong>. Die
-            Akkreditierung wird erst nach vollständigem Zahlungseingang
-            wirksam.
+            Akkreditierung wird erst nach vollständigem Zahlungseingang wirksam.
           </div>
           <div>
-            Nach Zahlungseingang erhalten Sie für Ihre Unterlagen eine
-            Rechnung. Begrenzte Anzahl an Lizenzen — Medienrichtlinien sind
-            verbindlich.
+            Nach Zahlungseingang erhalten Sie für Ihre Unterlagen eine Rechnung.
+            Begrenzte Anzahl an Lizenzen —{" "}
+            <a
+              href="/medienrichtlinien.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-base-300 transition-colors"
+            >
+              Medienrichtlinien
+            </a>{" "}
+            sind verbindlich.
           </div>
         </div>
       </div>
@@ -117,7 +142,15 @@ export default function AccreditationPage() {
       <p>
         Die Anzahl der Akkreditierungen ist begrenzt. Akkreditierte Personen
         erhalten Zugang zu definierten Arbeitsbereichen und sind verpflichtet,
-        den Anweisungen des Veranstalters sowie den geltenden Medienrichtlinien
+        den Anweisungen des Veranstalters sowie den geltenden{" "}
+        <a
+          href="/medienrichtlinien.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary-400 underline hover:text-primary-300 transition-colors"
+        >
+          Medienrichtlinien
+        </a>{" "}
         Folge zu leisten.
       </p>
 
@@ -142,4 +175,3 @@ export default function AccreditationPage() {
     </main>
   );
 }
-

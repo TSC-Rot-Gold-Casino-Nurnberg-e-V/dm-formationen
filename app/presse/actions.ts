@@ -34,6 +34,7 @@ export async function submitAccreditation(
   const phone = formData.get("phone") as string;
 
   const privacy = formData.get("privacy") === "on";
+  const medienrichtlinien = formData.get("medienrichtlinien") === "on";
   const medienlizenz = formData.get("medienlizenz") === "on";
 
   const pressPass = formData.get("pressPass") as File | null;
@@ -62,6 +63,14 @@ export async function submitAccreditation(
     return {
       success: false,
       message: "Bitte stimmen Sie der Datenschutzerklärung zu.",
+    };
+  }
+
+  if (!medienrichtlinien) {
+    return {
+      success: false,
+      message:
+        "Bitte bestätigen Sie, dass Sie die Medienrichtlinien gelesen und akzeptiert haben.",
     };
   }
 
@@ -97,6 +106,7 @@ Telefonnummer:        ${phone}
 DATENSCHUTZ
 ----------------------------------------
 Datenschutzerklärung: Zugestimmt
+Medienrichtlinien:    Akzeptiert
 
 ========================================
 Diese Anfrage wurde über das Online-Formular auf der Webseite der
@@ -131,6 +141,7 @@ Deutschen Meisterschaft der Formationen 2026 gesendet.
 
   <h3>Datenschutz</h3>
   <p>Datenschutzerklärung: ✅ Zugestimmt</p>
+  <p>Medienrichtlinien: ✅ Akzeptiert</p>
   <hr/>
   <p style="color: #999; font-size: 12px;">Diese Anfrage wurde über das Online-Formular auf der Webseite der Deutschen Meisterschaft der Formationen 2026 gesendet.</p>
 </div>
@@ -190,4 +201,3 @@ function escape(str: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
-

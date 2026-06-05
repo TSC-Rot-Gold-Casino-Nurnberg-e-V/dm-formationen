@@ -292,6 +292,27 @@ export function AccreditationForm() {
             />
             <span>Ich stimme der Datenschutzerklärung zu. *</span>
           </label>
+
+          <label className="flex items-start gap-2 cursor-pointer text-sm text-base-300">
+            <input
+              type="checkbox"
+              name="medienrichtlinien"
+              required
+              className="accent-primary-500 mt-0.5"
+            />
+            <span>
+              Ich habe die{" "}
+              <a
+                href="/medienrichtlinien.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-400 underline hover:text-primary-300 transition-colors"
+              >
+                Medienrichtlinien
+              </a>{" "}
+              gelesen und erkenne sie als verbindlich an. *
+            </span>
+          </label>
         </FormSection>
       </fieldset>
 
