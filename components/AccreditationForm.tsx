@@ -290,7 +290,18 @@ export function AccreditationForm() {
               required
               className="accent-primary-500 mt-0.5"
             />
-            <span>Ich stimme der Datenschutzerklärung zu. *</span>
+            <span>
+              Ich stimme der{" "}
+              <a
+                href="https://www.rot-gold-casino.de/datenschutzerklaerung"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-400 underline hover:text-primary-300 transition-colors"
+              >
+                Datenschutzerklärung
+              </a>{" "}
+              zu. *
+            </span>
           </label>
 
           <label className="flex items-start gap-2 cursor-pointer text-sm text-base-300">
