@@ -95,8 +95,8 @@ export default function AccreditationPage() {
           <span className="text-base-400">BIC</span>
           <br />
           <span className="flex items-center">
-            NORSDE77
-            <CopyButton text="NORSDE77" />
+            SSKNDE77XXX
+            <CopyButton text="SSKNDE77XXX" />
           </span>
         </div>
         <div>
