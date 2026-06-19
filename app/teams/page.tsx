@@ -26,12 +26,16 @@ const sections: Section[] = [
         trainers: ["Sven Traut", "Felix Teufert"],
       },
       {
+        name: "TSA d. TV Jahn Delmenhorst von 1909 A",
+        trainers: ["Christian Stejzel", "Josephine Goerling"],
+      },
+      {
         name: "TD Tanzsportclub Düsseldorf Rot-Weiß A",
         trainers: ["Uwe Schieren", "Melanie Schieren"],
       },
       {
-        name: "TSC Blau-Gold Nienburg A",
-        trainers: ["Sarina Krüger", "Dennis-Tim Krüger"],
+        name: "Tanzsportteam im ASC Göttingen v. 1846 A",
+        trainers: ["Anton Shukow", "Mieke Zimmermann"],
       },
       {
         name: "TSC Blau-Gold Nienburg B",
@@ -73,10 +77,6 @@ const sections: Section[] = [
         trainers: ["Angelo Adler", "Lars Tielitz von Totth"],
       },
       {
-        name: "TSG Bremerhaven A",
-        trainers: ["Jessica Gwizdala", "Nicolas Padinha", "Loc Nguyem"],
-      },
-      {
         name: "Blau-Weiss Buchholz, TSA A",
         trainers: [
           "Franziska Becker",
@@ -86,22 +86,20 @@ const sections: Section[] = [
         ],
       },
       {
-        name: "1. TC Ludwigsburg A",
-        trainers: [
-          "Rainer Schönamsgruber",
-          "Tania Teschner",
-          "Arthur Ankerstein",
-          "Oona Ankerstein",
-          "Alexander Schwaderer",
-        ],
-      },
-      {
         name: "TSC Residenz Ludwigsburg A",
         trainers: ["Klaus Pätzold", "Jürgen Neidlinger"],
       },
       {
+        name: "TSC Blau-Gold Nienburg A",
+        trainers: ["Tim Weinholz", "Hannes Witte"],
+      },
+      {
         name: "TSC Walsrode A",
         trainers: ["Michael Maas"],
+      },
+      {
+        name: "Tanzsportzentrum Weissacher Tal A",
+        trainers: ["Dirk Gutöhrlein", "Fabio Rothmund", "Andrzej Cibis"],
       },
     ],
   },
