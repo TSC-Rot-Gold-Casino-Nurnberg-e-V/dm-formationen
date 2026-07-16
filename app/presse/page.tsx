@@ -154,6 +154,38 @@ export default function AccreditationPage() {
         Folge zu leisten.
       </p>
 
+      {/* Jugendschutz & Ethik (DTV) */}
+      <h2>Jugendschutz &amp; Ethik des DTV</h2>
+      <p>
+        Der Deutsche Tanzsportverband (DTV) hat die Voraussetzungen für eine
+        Akkreditierung angepasst. Für die Akkreditierung ist es erforderlich, den{" "}
+        <a
+          href="/ehrenkodex-dtv.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ehrenkodex des DTV
+        </a>{" "}
+        herunterzuladen, zu unterschreiben und die unterschriebene Datei im
+        Formular hochzuladen. Außerdem bestätigen Sie im Formular, dass Sie den{" "}
+        <a
+          href="/dtv-ethik-code.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          DTV-Ethik-Code
+        </a>{" "}
+        sowie die{" "}
+        <a
+          href="/erklaerung-schutz-kinder-jugendliche.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Erklärung zum Schutz von Kindern und Jugendlichen
+        </a>{" "}
+        gelesen haben.
+      </p>
+
       {/* Formular */}
       <div className="not-prose mt-12" id="formular">
         <h2 className="text-2xl font-bold text-base-100 mb-6 text-center">

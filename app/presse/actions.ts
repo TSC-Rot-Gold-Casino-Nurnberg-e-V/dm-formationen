@@ -36,8 +36,12 @@ export async function submitAccreditation(
   const privacy = formData.get("privacy") === "on";
   const medienrichtlinien = formData.get("medienrichtlinien") === "on";
   const medienlizenz = formData.get("medienlizenz") === "on";
+  const ethikCodeConfirmed = formData.get("ethikCodeConfirmed") === "on";
+  const kinderJugendschutzConfirmed =
+    formData.get("kinderJugendschutzConfirmed") === "on";
 
   const pressPass = formData.get("pressPass") as File | null;
+  const signedEhrenkodex = formData.get("signedEhrenkodex") as File | null;
 
   // Validation
   if (
@@ -71,6 +75,22 @@ export async function submitAccreditation(
       success: false,
       message:
         "Bitte bestätigen Sie, dass Sie die Medienrichtlinien gelesen und akzeptiert haben.",
+    };
+  }
+
+  if (!ethikCodeConfirmed || !kinderJugendschutzConfirmed) {
+    return {
+      success: false,
+      message:
+        "Bitte bestätigen Sie, dass Sie den DTV-Ethik-Code sowie die Erklärung zum Schutz von Kindern und Jugendlichen gelesen haben.",
+    };
+  }
+
+  if (!signedEhrenkodex || signedEhrenkodex.size === 0) {
+    return {
+      success: false,
+      message:
+        "Bitte laden Sie den unterschriebenen Ehrenkodex des DTV hoch.",
     };
   }
 
@@ -108,6 +128,12 @@ DATENSCHUTZ
 Datenschutzerklärung: Zugestimmt
 Medienrichtlinien:    Akzeptiert
 
+JUGENDSCHUTZ & ETHIK (DTV)
+----------------------------------------
+Ehrenkodex (unterschr.): Im Anhang
+DTV-Ethik-Code:          Gelesen und anerkannt
+Kinder-/Jugendschutz:    Gelesen und anerkannt
+
 ========================================
 Diese Anfrage wurde über das Online-Formular auf der Webseite der
 Deutschen Meisterschaft der Formationen 2026 gesendet.
@@ -142,6 +168,11 @@ Deutschen Meisterschaft der Formationen 2026 gesendet.
   <h3>Datenschutz</h3>
   <p>Datenschutzerklärung: ✅ Zugestimmt</p>
   <p>Medienrichtlinien: ✅ Akzeptiert</p>
+
+  <h3>Jugendschutz &amp; Ethik (DTV)</h3>
+  <p>Ehrenkodex (unterschrieben): 📎 Im Anhang</p>
+  <p>DTV-Ethik-Code: ✅ Gelesen und anerkannt</p>
+  <p>Erklärung zum Schutz von Kindern und Jugendlichen: ✅ Gelesen und anerkannt</p>
   <hr/>
   <p style="color: #999; font-size: 12px;">Diese Anfrage wurde über das Online-Formular auf der Webseite der Deutschen Meisterschaft der Formationen 2026 gesendet.</p>
 </div>
@@ -153,6 +184,13 @@ Deutschen Meisterschaft der Formationen 2026 gesendet.
     const buffer = Buffer.from(await pressPass.arrayBuffer());
     attachments.push({
       filename: pressPass.name,
+      content: buffer,
+    });
+  }
+  if (signedEhrenkodex && signedEhrenkodex.size > 0) {
+    const buffer = Buffer.from(await signedEhrenkodex.arrayBuffer());
+    attachments.push({
+      filename: `Ehrenkodex-${lastName}-${firstName}-${signedEhrenkodex.name}`,
       content: buffer,
     });
   }

@@ -327,6 +327,109 @@ export function AccreditationForm() {
         </FormSection>
       </fieldset>
 
+      {/* 5) Jugendschutz & Ethik (DTV) */}
+      <fieldset>
+        <FormSection>
+          <legend className="text-lg font-semibold text-base-100 mb-2">
+            Jugendschutz &amp; Ethik (DTV)
+          </legend>
+
+          <p className="text-sm text-base-400 leading-relaxed">
+            Der Deutsche Tanzsportverband (DTV) setzt für die Akkreditierung die
+            Anerkennung seiner Jugendschutz- und Ethikgrundsätze voraus. Bitte
+            laden Sie den{" "}
+            <a
+              href="/ehrenkodex-dtv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-400 underline hover:text-primary-300 transition-colors"
+            >
+              Ehrenkodex des DTV
+            </a>{" "}
+            herunter, unterschreiben Sie ihn und fügen Sie die unterschriebene
+            Datei unten bei. Zusätzlich bestätigen Sie bitte, dass Sie den{" "}
+            <a
+              href="/dtv-ethik-code.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-400 underline hover:text-primary-300 transition-colors"
+            >
+              DTV-Ethik-Code
+            </a>{" "}
+            sowie die{" "}
+            <a
+              href="/erklaerung-schutz-kinder-jugendliche.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-400 underline hover:text-primary-300 transition-colors"
+            >
+              Erklärung zum Schutz von Kindern und Jugendlichen
+            </a>{" "}
+            gelesen haben.
+          </p>
+
+          <div>
+            <FormLabel htmlFor="signedEhrenkodex">
+              Unterschriebener Ehrenkodex *
+            </FormLabel>
+            <p className="text-xs text-base-400 mb-2">
+              Bitte laden Sie den unterschriebenen Ehrenkodex des DTV als PDF
+              hoch.
+            </p>
+            <input
+              type="file"
+              id="signedEhrenkodex"
+              name="signedEhrenkodex"
+              accept="application/pdf,.pdf"
+              required
+              className="w-full text-sm text-base-400 file:mr-3 file:rounded-lg file:border-0 file:bg-base-700 file:px-4 file:py-2 file:text-sm file:font-medium file:text-base-200 file:cursor-pointer hover:file:bg-base-600 transition-colors"
+            />
+          </div>
+
+          <label className="flex items-start gap-2 cursor-pointer text-sm text-base-300">
+            <input
+              type="checkbox"
+              name="ethikCodeConfirmed"
+              required
+              className="accent-primary-500 mt-0.5"
+            />
+            <span>
+              Ich habe den{" "}
+              <a
+                href="/dtv-ethik-code.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-400 underline hover:text-primary-300 transition-colors"
+              >
+                DTV-Ethik-Code
+              </a>{" "}
+              gelesen und erkenne ihn an. *
+            </span>
+          </label>
+
+          <label className="flex items-start gap-2 cursor-pointer text-sm text-base-300">
+            <input
+              type="checkbox"
+              name="kinderJugendschutzConfirmed"
+              required
+              className="accent-primary-500 mt-0.5"
+            />
+            <span>
+              Ich habe die{" "}
+              <a
+                href="/erklaerung-schutz-kinder-jugendliche.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-400 underline hover:text-primary-300 transition-colors"
+              >
+                Erklärung zum Schutz von Kindern und Jugendlichen
+              </a>{" "}
+              gelesen und erkenne sie an. *
+            </span>
+          </label>
+        </FormSection>
+      </fieldset>
+
       {/* Submit */}
       <button
         type="submit"
