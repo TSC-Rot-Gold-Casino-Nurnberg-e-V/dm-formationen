@@ -3,9 +3,9 @@ import {
   ArrowRightIcon,
   CalendarDaysIcon,
   ClockIcon,
-  HomeIcon,
   MapPinIcon,
   UserGroupIcon,
+  VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 import { Countdown } from "@/components/Countdown";
 import { EventDateChip } from "@/components/EventDateChip";
@@ -111,19 +111,19 @@ export default function Home() {
         <section className="bg-base-800/80 flex flex-col justify-between rounded-3xl p-8 pb-6">
           <div>
             <div className="flex justify-between gap-2 mb-2 text-base-50">
-              <h2 className="text-3xl font-bold">Hotels</h2>
-              <HomeIcon className="size-8 shrink-0" />
+              <h2 className="text-3xl font-bold">Livestream</h2>
+              <VideoCameraIcon className="size-8 shrink-0" />
             </div>
             <p>
-              Wir haben für unsere Gäste eine Auswahl an Hotels in verschiedenen
-              Preiskategorien zusammengestellt
+              Verfolgen Sie die Deutsche Meisterschaft der Formationen live,
+              wenn Sie nicht vor Ort sein können
             </p>
           </div>
           <Link
-            href="/hotels"
+            href="/livestream"
             className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
-            <div>zu den Hotels</div>
+            <div>zum Livestream</div>
             <ArrowRightIcon className="size-4 stroke-2" />
           </Link>
         </section>

@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/zeitplan", label: "Zeitplan" },
   { href: "/teams", label: "Teams" },
-  { href: "/hotels", label: "Hotels" },
   { href: "/presse", label: "Presse" },
   { href: "/livestream", label: "Livestream" },
   { href: "/anfahrt", label: "Anfahrt" },
