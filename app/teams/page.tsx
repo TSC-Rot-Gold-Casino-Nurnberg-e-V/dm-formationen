@@ -59,7 +59,11 @@ const sections: Section[] = [
     title: "Latein",
     teams: [
       {
-        name: "Tanzsportgemeinschaft Bietigheim A",
+        name: "TSC Schwarz-Gelb Aachen A",
+        trainers: ["Holger Reißer", "Andy Jekel"],
+      },
+      {
+        name: "TSG Bietigheim A",
         trainers: [
           "Stefan Cramer",
           "Markus Oenning",
@@ -73,11 +77,7 @@ const sections: Section[] = [
         trainers: ["Roberto Albanese", "Uta Albanese", "Sven Emmrich"],
       },
       {
-        name: "Grün-Gold-Club Bremen B",
-        trainers: ["Angelo Adler", "Lars Tielitz von Totth"],
-      },
-      {
-        name: "Blau-Weiss Buchholz, TSA A",
+        name: "TSA Blau-Weiss Buchholz A",
         trainers: [
           "Franziska Becker",
           "Christopher Voigt",
@@ -98,7 +98,7 @@ const sections: Section[] = [
         trainers: ["Michael Maas"],
       },
       {
-        name: "Tanzsportzentrum Weissacher Tal A",
+        name: "TSZ Weissacher Tal A",
         trainers: ["Dirk Gutöhrlein", "Fabio Rothmund", "Andrzej Cibis"],
       },
     ],
