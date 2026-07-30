@@ -1,127 +1,124 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import {
+  CONTACT_EMAIL,
+  REPORTING_TYPES,
+  parseAccreditationFormData,
+  readUploadFile,
+  summaryMessage,
+  validateTotalUploadSize,
+  type AccreditationData,
+  type AccreditationState,
+} from "@/lib/accreditation";
 
-export type AccreditationState = {
-  success: boolean;
-  message: string;
-} | null;
+const REQUIRED_ENV_VARS = [
+  "SMTP_HOST",
+  "SMTP_USER",
+  "SMTP_PASS",
+  "SMTP_FROM",
+  "SMTP_TO",
+] as const;
 
-const REPORTING_TYPES: Record<string, string> = {
-  print: "Zeitung / Druckerzeugnis",
-  online: "Onlinebericht",
-  photo: "Foto",
-  video: "Video",
-};
+/** Kurze Referenz, die dem Nutzer angezeigt und zusätzlich geloggt wird. */
+function createErrorCode(): string {
+  return Math.random().toString(36).slice(2, 8).toUpperCase();
+}
 
-export async function submitAccreditation(
-  _prevState: AccreditationState,
-  formData: FormData,
-): Promise<AccreditationState> {
-  // Extract fields
-  const firstName = formData.get("firstName") as string;
-  const lastName = formData.get("lastName") as string;
-  const medium = formData.get("medium") as string;
-  const position = formData.get("position") as string;
-  const reportingTypes = formData.getAll("reportingType") as string[];
-  const freelancer = formData.get("freelancer") === "on";
-  const email = formData.get("email") as string;
+function errorState(
+  message: string,
+  extra?: Omit<NonNullable<AccreditationState>, "status" | "message">,
+): AccreditationState {
+  return { status: "error", message, ...extra };
+}
 
-  const street = formData.get("street") as string;
-  const zip = formData.get("zip") as string;
-  const city = formData.get("city") as string;
-  const country = formData.get("country") as string;
-  const phone = formData.get("phone") as string;
+/** Entfernt Zeichen, die E-Mail-Header manipulieren könnten. */
+function sanitizeHeaderValue(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
 
-  const privacy = formData.get("privacy") === "on";
-  const medienrichtlinien = formData.get("medienrichtlinien") === "on";
-  const medienlizenz = formData.get("medienlizenz") === "on";
-  const ethikCodeConfirmed = formData.get("ethikCodeConfirmed") === "on";
-  const kinderJugendschutzConfirmed =
-    formData.get("kinderJugendschutzConfirmed") === "on";
+/** Entfernt Pfadanteile und problematische Zeichen aus Dateinamen. */
+function sanitizeFileName(parts: string[], fallback: string): string {
+  const cleaned = parts
+    .map((part) => (part.split(/[\\/]/).pop() ?? "").trim())
+    .filter(Boolean)
+    .join("-")
+    .replace(/[\r\n\t"]+/g, "")
+    .replace(/[^\p{L}\p{N}.\-_ ]+/gu, "_")
+    .replace(/_{2,}/g, "_")
+    .trim();
+  return cleaned.length > 0 ? cleaned.slice(0, 120) : fallback;
+}
 
-  const pressPass = formData.get("pressPass") as File | null;
-  const signedEhrenkodex = formData.get("signedEhrenkodex") as File | null;
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
-  // Validation
-  if (
-    !firstName ||
-    !lastName ||
-    !medium ||
-    !position ||
-    reportingTypes.length === 0 ||
-    !email ||
-    !street ||
-    !zip ||
-    !city ||
-    !country ||
-    !phone
-  ) {
-    return {
-      success: false,
-      message: "Bitte füllen Sie alle Pflichtfelder aus.",
-    };
+type MailError = { code?: string; responseCode?: number; message?: string };
+
+function describeMailError(error: unknown): string {
+  const mailError = (error ?? {}) as MailError;
+  const code = typeof mailError.code === "string" ? mailError.code : "";
+  const responseCode = mailError.responseCode;
+
+  if (code === "EAUTH" || responseCode === 535) {
+    return "Der E-Mail-Versand ist an der Anmeldung am Mailserver gescheitert. Das liegt an uns, nicht an Ihren Angaben.";
   }
-
-  if (!privacy) {
-    return {
-      success: false,
-      message: "Bitte stimmen Sie der Datenschutzerklärung zu.",
-    };
+  if (code === "ECONNECTION" || code === "ESOCKET" || code === "EDNS") {
+    return "Der Mailserver war nicht erreichbar. Bitte versuchen Sie es in einigen Minuten erneut.";
   }
-
-  if (!medienrichtlinien) {
-    return {
-      success: false,
-      message:
-        "Bitte bestätigen Sie, dass Sie die Medienrichtlinien gelesen und akzeptiert haben.",
-    };
+  if (code === "ETIMEDOUT" || code === "ETIME") {
+    return "Der Versand hat zu lange gedauert und wurde abgebrochen. Möglicherweise sind Ihre Anhänge sehr groß – bitte verkleinern Sie diese und versuchen Sie es erneut.";
   }
-
-  if (!ethikCodeConfirmed || !kinderJugendschutzConfirmed) {
-    return {
-      success: false,
-      message:
-        "Bitte bestätigen Sie, dass Sie den DTV-Ethik-Code sowie die Erklärung zum Schutz von Kindern und Jugendlichen gelesen haben.",
-    };
+  if (code === "EENVELOPE" || responseCode === 550 || responseCode === 553) {
+    return "Die E-Mail konnte nicht zugestellt werden. Bitte prüfen Sie Ihre E-Mail-Adresse auf Tippfehler.";
   }
-
-  if (!signedEhrenkodex || signedEhrenkodex.size === 0) {
-    return {
-      success: false,
-      message:
-        "Bitte laden Sie den unterschriebenen Ehrenkodex des DTV hoch.",
-    };
+  if (code === "EMESSAGE" || responseCode === 552 || responseCode === 523) {
+    return "Die Anfrage wurde vom Mailserver abgelehnt, weil die Anhänge zu groß sind. Bitte verkleinern Sie Ihre Dateien und versuchen Sie es erneut.";
   }
+  return "Beim Versenden Ihrer Anfrage ist ein technischer Fehler aufgetreten. Bitte versuchen Sie es in einigen Minuten erneut.";
+}
 
-  // Build email
-  const reportingLabels = reportingTypes
-    .map((t) => REPORTING_TYPES[t] || t)
+function withContactHint(message: string, errorCode: string): string {
+  return `${message} Falls das Problem bestehen bleibt, senden Sie uns Ihre Unterlagen bitte direkt per E-Mail an ${CONTACT_EMAIL} (Fehler-Referenz: ${errorCode}).`;
+}
+
+function buildTextContent(
+  data: AccreditationData,
+  hasPressPass: boolean,
+): string {
+  const reportingLabels = data.reportingTypes
+    .map((type) => REPORTING_TYPES[type])
     .join(", ");
 
-  const textContent = `
+  return `
 NEUE AKKREDITIERUNGSANFRAGE
 ========================================
 
 ALLGEMEINE ANGABEN
 ----------------------------------------
-Vorname:              ${firstName}
-Nachname:             ${lastName}
-Medium:               ${medium}
-Position / Funktion:  ${position}
+Vorname:              ${data.firstName}
+Nachname:             ${data.lastName}
+Medium:               ${data.medium}
+Position / Funktion:  ${data.position}
 Berichterstattung:    ${reportingLabels}
-Freelancer:           ${freelancer ? "Ja" : "Nein"}
-E-Mail:               ${email}
-Presseausweis:        ${pressPass && pressPass.size > 0 ? "Im Anhang" : "Nicht beigefügt"}
-Medienlizenz:         ${medienlizenz ? "Ja – Zahlung zugesagt" : "Nein"}
+Freelancer:           ${data.freelancer ? "Ja" : "Nein"}
+E-Mail:               ${data.email}
+Presseausweis:        ${hasPressPass ? "Im Anhang" : "Nicht beigefügt"}
+Medienlizenz:         ${data.medienlizenz ? "Ja – Zahlung zugesagt" : "Nein"}
 
 PERSÖNLICHE ANGABEN
 ----------------------------------------
-Straße, Hausnummer:   ${street}
-Postleitzahl:         ${zip}
-Wohnort:              ${city}
-Land:                 ${country}
-Telefonnummer:        ${phone}
+Straße, Hausnummer:   ${data.street}
+Postleitzahl:         ${data.zip}
+Wohnort:              ${data.city}
+Land:                 ${data.country}
+Telefonnummer:        ${data.phone}
 
 DATENSCHUTZ
 ----------------------------------------
@@ -138,31 +135,42 @@ Kinder-/Jugendschutz:    Gelesen und anerkannt
 Diese Anfrage wurde über das Online-Formular auf der Webseite der
 Deutschen Meisterschaft der Formationen 2026 gesendet.
 `.trim();
+}
 
-  const htmlContent = `
+function buildHtmlContent(
+  data: AccreditationData,
+  hasPressPass: boolean,
+): string {
+  const reportingLabels = data.reportingTypes
+    .map((type) => REPORTING_TYPES[type])
+    .join(", ");
+  const cell =
+    'style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;"';
+
+  return `
 <div style="font-family: monospace, monospace; font-size: 14px; color: #222;">
   <h2 style="margin-bottom: 4px;">Neue Akkreditierungsanfrage</h2>
   <hr/>
   <h3>Allgemeine Angaben</h3>
   <table style="border-collapse: collapse;">
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Vorname</td><td>${escape(firstName)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Nachname</td><td>${escape(lastName)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Medium</td><td>${escape(medium)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Position / Funktion</td><td>${escape(position)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Berichterstattung</td><td>${escape(reportingLabels)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Freelancer</td><td>${freelancer ? "Ja" : "Nein"}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">E-Mail</td><td><a href="mailto:${escape(email)}">${escape(email)}</a></td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Presseausweis</td><td>${pressPass && pressPass.size > 0 ? "Im Anhang" : "Nicht beigefügt"}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Medienlizenz</td><td>${medienlizenz ? "✅ Ja – Zahlung zugesagt" : "Nein"}</td></tr>
+    <tr><td ${cell}>Vorname</td><td>${escapeHtml(data.firstName)}</td></tr>
+    <tr><td ${cell}>Nachname</td><td>${escapeHtml(data.lastName)}</td></tr>
+    <tr><td ${cell}>Medium</td><td>${escapeHtml(data.medium)}</td></tr>
+    <tr><td ${cell}>Position / Funktion</td><td>${escapeHtml(data.position)}</td></tr>
+    <tr><td ${cell}>Berichterstattung</td><td>${escapeHtml(reportingLabels)}</td></tr>
+    <tr><td ${cell}>Freelancer</td><td>${data.freelancer ? "Ja" : "Nein"}</td></tr>
+    <tr><td ${cell}>E-Mail</td><td><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
+    <tr><td ${cell}>Presseausweis</td><td>${hasPressPass ? "Im Anhang" : "Nicht beigefügt"}</td></tr>
+    <tr><td ${cell}>Medienlizenz</td><td>${data.medienlizenz ? "✅ Ja – Zahlung zugesagt" : "Nein"}</td></tr>
   </table>
 
   <h3>Persönliche Angaben</h3>
   <table style="border-collapse: collapse;">
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Straße, Hausnummer</td><td>${escape(street)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Postleitzahl</td><td>${escape(zip)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Wohnort</td><td>${escape(city)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Land</td><td>${escape(country)}</td></tr>
-    <tr><td style="padding: 2px 16px 2px 0; white-space: nowrap; color: #666;">Telefonnummer</td><td>${escape(phone)}</td></tr>
+    <tr><td ${cell}>Straße, Hausnummer</td><td>${escapeHtml(data.street)}</td></tr>
+    <tr><td ${cell}>Postleitzahl</td><td>${escapeHtml(data.zip)}</td></tr>
+    <tr><td ${cell}>Wohnort</td><td>${escapeHtml(data.city)}</td></tr>
+    <tr><td ${cell}>Land</td><td>${escapeHtml(data.country)}</td></tr>
+    <tr><td ${cell}>Telefonnummer</td><td>${escapeHtml(data.phone)}</td></tr>
   </table>
 
   <h3>Datenschutz</h3>
@@ -177,26 +185,129 @@ Deutschen Meisterschaft der Formationen 2026 gesendet.
   <p style="color: #999; font-size: 12px;">Diese Anfrage wurde über das Online-Formular auf der Webseite der Deutschen Meisterschaft der Formationen 2026 gesendet.</p>
 </div>
 `.trim();
+}
 
-  // Prepare attachments
-  const attachments: { filename: string; content: Buffer }[] = [];
-  if (pressPass && pressPass.size > 0) {
-    const buffer = Buffer.from(await pressPass.arrayBuffer());
-    attachments.push({
-      filename: pressPass.name,
-      content: buffer,
-    });
-  }
-  if (signedEhrenkodex && signedEhrenkodex.size > 0) {
-    const buffer = Buffer.from(await signedEhrenkodex.arrayBuffer());
-    attachments.push({
-      filename: `Ehrenkodex-${lastName}-${firstName}-${signedEhrenkodex.name}`,
-      content: buffer,
-    });
-  }
+export async function submitAccreditation(
+  _prevState: AccreditationState,
+  formData: FormData,
+): Promise<AccreditationState> {
+  const errorCode = createErrorCode();
 
-  // Send email
   try {
+    if (!(formData instanceof FormData)) {
+      return errorState(
+        withContactHint(
+          "Die Formulardaten konnten nicht gelesen werden. Bitte laden Sie die Seite neu und füllen Sie das Formular erneut aus.",
+          errorCode,
+        ),
+        { errorCode },
+      );
+    }
+
+    const pressPassFile = readUploadFile(formData, "pressPass");
+    const ehrenkodexFile = readUploadFile(formData, "signedEhrenkodex");
+
+    const parsed = parseAccreditationFormData(formData);
+
+    if (!parsed.success) {
+      return errorState(summaryMessage(parsed.fieldErrors), {
+        fieldErrors: parsed.fieldErrors,
+      });
+    }
+
+    const data = parsed.data;
+
+    const tooLarge = validateTotalUploadSize(formData);
+    if (tooLarge) {
+      return errorState(tooLarge, {
+        fieldErrors: { signedEhrenkodex: tooLarge },
+      });
+    }
+
+    const missingEnv = REQUIRED_ENV_VARS.filter((name) => !process.env[name]);
+    if (missingEnv.length > 0) {
+      console.error(
+        `[Akkreditierung ${errorCode}] Fehlende SMTP-Konfiguration: ${missingEnv.join(", ")}`,
+      );
+      return errorState(
+        withContactHint(
+          "Der E-Mail-Versand ist auf unserer Seite derzeit nicht konfiguriert. Ihre Anfrage konnte deshalb nicht übermittelt werden.",
+          errorCode,
+        ),
+        { errorCode },
+      );
+    }
+
+    // Anhänge einlesen – Lesefehler dürfen nicht bis zum Client durchschlagen.
+    const attachments: {
+      filename: string;
+      content: Buffer;
+      contentType?: string;
+    }[] = [];
+
+    const files: {
+      file: File | null;
+      filename: string;
+      label: string;
+      field: "pressPass" | "signedEhrenkodex";
+    }[] = [
+      {
+        file: pressPassFile,
+        filename: sanitizeFileName(
+          [
+            "Presseausweis",
+            data.lastName,
+            data.firstName,
+            pressPassFile?.name ?? "",
+          ],
+          "Presseausweis",
+        ),
+        label: "Presseausweis",
+        field: "pressPass",
+      },
+      {
+        file: ehrenkodexFile,
+        filename: sanitizeFileName(
+          [
+            "Ehrenkodex",
+            data.lastName,
+            data.firstName,
+            ehrenkodexFile?.name ?? "",
+          ],
+          "Ehrenkodex",
+        ),
+        label: "Unterschriebener Ehrenkodex",
+        field: "signedEhrenkodex",
+      },
+    ];
+
+    for (const { file, filename, label, field } of files) {
+      if (!file || file.size === 0) continue;
+      try {
+        attachments.push({
+          filename,
+          content: Buffer.from(await file.arrayBuffer()),
+          contentType: file.type || undefined,
+        });
+      } catch (error) {
+        console.error(
+          `[Akkreditierung ${errorCode}] Datei konnte nicht gelesen werden (${label}):`,
+          error,
+        );
+        return errorState(
+          `${label}: Die Datei konnte nicht gelesen werden. Bitte wählen Sie sie erneut aus und senden Sie das Formular noch einmal.`,
+          {
+            fieldErrors: {
+              [field]:
+                "Die Datei konnte nicht gelesen werden. Bitte wählen Sie sie erneut aus.",
+            },
+          },
+        );
+      }
+    }
+
+    const hasPressPass = Boolean(pressPassFile && pressPassFile.size > 0);
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
@@ -205,37 +316,53 @@ Deutschen Meisterschaft der Formationen 2026 gesendet.
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      // Ohne Timeouts kann ein hängender Mailserver bis zum Function-Timeout
+      // blockieren – der Nutzer sähe dann nur eine generische Fehlerseite.
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
     });
 
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.SMTP_TO,
-      replyTo: email,
-      subject: `Akkreditierungsanfrage: ${firstName} ${lastName} – ${medium}`,
-      text: textContent,
-      html: htmlContent,
-      attachments,
-    });
+    try {
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM,
+        to: process.env.SMTP_TO,
+        replyTo: sanitizeHeaderValue(data.email),
+        subject: sanitizeHeaderValue(
+          `Akkreditierungsanfrage: ${data.firstName} ${data.lastName} – ${data.medium}`,
+        ),
+        text: buildTextContent(data, hasPressPass),
+        html: buildHtmlContent(data, hasPressPass),
+        attachments,
+      });
+    } catch (error) {
+      console.error(
+        `[Akkreditierung ${errorCode}] E-Mail-Versand fehlgeschlagen:`,
+        error,
+      );
+      return errorState(withContactHint(describeMailError(error), errorCode), {
+        errorCode,
+      });
+    } finally {
+      transporter.close();
+    }
 
     return {
-      success: true,
+      status: "success",
       message:
         "Ihre Akkreditierungsanfrage wurde erfolgreich gesendet. Sie erhalten eine Rückmeldung per E-Mail.",
     };
   } catch (error) {
-    console.error("Failed to send accreditation email:", error);
-    return {
-      success: false,
-      message:
-        "Beim Versenden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per E-Mail.",
-    };
+    console.error(
+      `[Akkreditierung ${errorCode}] Unerwarteter Fehler in der Server Action:`,
+      error,
+    );
+    return errorState(
+      withContactHint(
+        "Bei der Verarbeitung Ihrer Anfrage ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        errorCode,
+      ),
+      { errorCode },
+    );
   }
-}
-
-function escape(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }

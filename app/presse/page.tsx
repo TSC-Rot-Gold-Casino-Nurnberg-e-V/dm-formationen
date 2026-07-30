@@ -186,6 +186,18 @@ export default function AccreditationPage() {
         gelesen haben.
       </p>
 
+      {/* Hinweis zu Dateiuploads */}
+      <div className="not-prose border border-base-700 flex gap-3 rounded-3xl text-sm p-4 text-base-400">
+        <InformationCircleIcon className="size-5 shrink-0 mt-0.5" />
+        <div>
+          Für Uploads sind PDF-, JPG-, PNG-, WEBP-, AVIF- und HEIC-Dateien mit
+          bis zu <strong className="text-base-300">3&nbsp;MB</strong> je Datei
+          zulässig. Fotos werden vor dem Hochladen automatisch verkleinert. Ist
+          Ihr PDF-Scan größer, speichern Sie ihn bitte mit geringerer Auflösung
+          (z.&nbsp;B. 150&nbsp;dpi, Graustufen).
+        </div>
+      </div>
+
       {/* Formular */}
       <div className="not-prose mt-12" id="formular">
         <h2 className="text-2xl font-bold text-base-100 mb-6 text-center">
