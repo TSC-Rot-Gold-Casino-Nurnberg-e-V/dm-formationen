@@ -38,7 +38,7 @@ const sections: Section[] = [
         trainers: ["Anton Shukow", "Mieke Zimmermann"],
       },
       {
-        name: "TSC Blau-Gold Nienburg B",
+        name: "TSC Blau-Gold Nienburg A",
         trainers: ["Marlene Wiegmann", "Nihan Türk"],
       },
       {
