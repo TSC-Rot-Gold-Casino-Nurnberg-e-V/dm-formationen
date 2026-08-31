@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: "/teams", label: "Teams" },
   { href: "/presse", label: "Presse" },
   { href: "/livestream", label: "Livestream" },
+  { href: "/hotels", label: "Hotels" },
   { href: "/anfahrt", label: "Anfahrt" },
 ];
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   ArrowRightIcon,
+  BuildingOffice2Icon,
   CalendarDaysIcon,
   ClockIcon,
   MapPinIcon,
@@ -124,6 +125,25 @@ export default function Home() {
             className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
           >
             <div>zum Livestream</div>
+            <ArrowRightIcon className="size-4 stroke-2" />
+          </Link>
+        </section>
+        <section className="bg-base-800/80 flex flex-col justify-between rounded-3xl p-8 pb-6 sm:col-span-2">
+          <div>
+            <div className="flex justify-between gap-2 mb-2 text-base-50">
+              <h2 className="text-3xl font-bold">Hotels</h2>
+              <BuildingOffice2Icon className="size-8 shrink-0" />
+            </div>
+            <p>
+              Übernachten Sie zu Sonderkonditionen in einem unserer
+              Partnerhotels in Nürnberg und Fürth.
+            </p>
+          </div>
+          <Link
+            href="/hotels"
+            className="flex p-2 -m-2 ml-auto mt-0 w-fit items-center hover:text-primary-200 transition-colors text-primary-300 gap-2"
+          >
+            <div>zu den Partnerhotels</div>
             <ArrowRightIcon className="size-4 stroke-2" />
           </Link>
         </section>
