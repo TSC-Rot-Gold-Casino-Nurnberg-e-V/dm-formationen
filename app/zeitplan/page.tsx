@@ -13,7 +13,7 @@ export default function ZeitplanPage() {
       <EventDateChip className="container" />
       <div className="w-fit mx-auto">
         <section>
-          <h2 className="text-primary-300 !mt-10">Tagesveranstaltung</h2>
+          <h2 className="text-primary-300 !mt-10">Nachmittagsveranstaltung</h2>
           <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
             <div className="space-y-3">
               <div className="font-black text-base-100 text-xl sm:text-2xl">
@@ -23,13 +23,25 @@ export default function ZeitplanPage() {
                 14:30 Uhr
               </div>
               <div className="font-black text-base-100 text-xl sm:text-2xl">
-                17:00 Uhr
+                14:40 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                15:45 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                16:00 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                17:05 Uhr
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-base-300">Einlass der Zuschauer</div>
-              <div className="text-base-300">Vorrunden</div>
-              <div className="text-base-300">Ende</div>
+              <div className="text-base-300">Einlass Zuschauer</div>
+              <div className="text-base-300">Begrüßung</div>
+              <div className="text-base-300">Vorrunde Latein</div>
+              <div className="text-base-300">Ende Vorrunde Latein</div>
+              <div className="text-base-300">Vorrunde Standard</div>
+              <div className="text-base-300">Ende Nachmittagsveranstaltung</div>
             </div>
           </div>
         </section>
@@ -44,13 +56,39 @@ export default function ZeitplanPage() {
                 19:30 Uhr
               </div>
               <div className="font-black text-base-100 text-xl sm:text-2xl">
-                23:45 Uhr
+                19:35 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                20:00 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                20:55 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                21:45 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                22:15 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                22:55 Uhr
+              </div>
+              <div className="font-black text-base-100 text-xl sm:text-2xl">
+                23:40 Uhr
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-base-300">Einlass der Zuschauer</div>
-              <div className="text-base-300">Zwischen- und Endrunden</div>
-              <div className="text-base-300">Ende</div>
+              <div className="text-base-300">Einlass Zuschauer</div>
+              <div className="text-base-300">Begrüßung</div>
+              <div className="text-base-300">
+                Vorstellung aller Teams Latein &amp; Standard
+              </div>
+              <div className="text-base-300">Zwischenrunde Latein</div>
+              <div className="text-base-300">Zwischenrunde Standard</div>
+              <div className="text-base-300">Pause</div>
+              <div className="text-base-300">Finale Latein</div>
+              <div className="text-base-300">Finale Standard</div>
+              <div className="text-base-300">Siegerehrung</div>
             </div>
           </div>
         </section>

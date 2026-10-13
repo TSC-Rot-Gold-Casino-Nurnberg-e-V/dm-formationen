@@ -47,7 +47,7 @@ export default function Home() {
               <ClockIcon className="size-8 shrink-0" />
               <div>
                 <div className="text-sm tracking-wide font-semibold">
-                  TAGESVERANSTALTUNG
+                  NACHMITTAGSVERANSTALTUNG
                 </div>
                 <div className="text-2xl font-bold text-base-50">14:30 Uhr</div>
               </div>
